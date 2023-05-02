@@ -11,7 +11,7 @@ const IndustrySelect = () => {
       placeholder="Выберите отрасль"
       onDropdownOpen={() => setIsSelectFocus(true)}
       onDropdownClose={() => setIsSelectFocus(false)}
-      rightSection={isSelectFocused ? <UpArrowSelect /> : <DownArrow />}
+      rightSection={<ActionIcon>{isSelectFocused ? <UpArrowSelect /> : <DownArrow />}</ActionIcon>}
       rightSectionWidth={50}
       data={['ed', 'grh', 'zerh', 'ed', 'reh', 'zery', 'ed', 'Ggg', 'erj', 'ed', 'iu;.', 'r5ij']}
       styles={(theme) => ({
@@ -19,6 +19,9 @@ const IndustrySelect = () => {
           backgroundColor: theme.white,
           ':hover': { backgroundColor: theme.colors.blue[BlueColors.Blue100] },
           ':active': { backgroundColor: theme.colors.blue[BlueColors.Blue500] },
+        },
+        rightSection: {
+          pointerEvents: 'none',
         },
       })}
     />

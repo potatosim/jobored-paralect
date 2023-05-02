@@ -25,6 +25,10 @@ const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
         },
 
         cursorType: 'pointer',
+        radius: {
+          md: '8px',
+          lg: '12px',
+        },
 
         headings: {
           sizes: {

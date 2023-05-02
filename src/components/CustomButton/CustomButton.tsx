@@ -10,6 +10,7 @@ const CustomButton: FC<CustomButtonProps> = ({ size = 'regular', ...props }) => 
   return (
     <Button
       size={size}
+      radius="md"
       styles={(theme) => ({
         root: {
           padding: size === 'regular' ? '9.5px 20px' : '5.5px 20px',
@@ -18,6 +19,9 @@ const CustomButton: FC<CustomButtonProps> = ({ size = 'regular', ...props }) => 
           fontFamily: theme.fontFamily,
           fontWeight: 500,
           fontSize: theme.fontSizes.xsmall,
+          lineHeight: '21px',
+
+          border: 'none',
 
           '&:hover': {
             backgroundColor: theme.colors.blue[BlueColors.Blue400],
