@@ -4,14 +4,18 @@ import AppRouter from './routes/AppRouter';
 import 'normalize.css';
 import { BrowserRouter } from 'react-router-dom';
 import ThemeProvider from 'theme/ThemeProvider';
+import { Provider } from 'react-redux';
+import { store } from 'store/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <ThemeProvider>
-      <BrowserRouter>
-        <AppRouter />
-      </BrowserRouter>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider>
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>,
 );

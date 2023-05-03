@@ -1,10 +1,15 @@
 import { Button, ButtonProps } from '@mantine/core';
 import { BlueColors, GrayColors } from 'enum/Colors';
+import { resetAllFilters } from 'handlers/filterSlice';
+import { useAppDispatch } from 'hooks/reduxHooks';
 import React, { FC } from 'react';
 
 const TextButton: FC<ButtonProps> = ({ ...props }) => {
+  const dispatch = useAppDispatch();
+
   return (
     <Button
+      onClick={() => dispatch(resetAllFilters())}
       styles={(theme) => ({
         root: {
           backgroundColor: 'transparent',

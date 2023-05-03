@@ -1,16 +1,20 @@
 import { TextInput } from '@mantine/core';
 import CustomButton from 'components/CustomButton/CustomButton';
-import React, { ChangeEvent, useState } from 'react';
+import { setSearchValue } from 'handlers/filterSlice';
+import { getFiltersAppSelector } from 'selectors/getFiltersAppSelector';
+import { useAppSelector, useAppDispatch } from 'hooks/reduxHooks';
+import React, { ChangeEvent } from 'react';
 import { SearchIcon } from 'static';
 
 const SearchInput = () => {
-  const [searchValue, setSearchValue] = useState<string>('');
+  const { searchValue } = useAppSelector(getFiltersAppSelector);
+  const dispatch = useAppDispatch();
 
   return (
     <TextInput
       value={searchValue}
       placeholder="Введите название вакансии"
-      onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value)}
+      onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(setSearchValue(e.target.value))}
       icon={<SearchIcon />}
       size="lg"
       radius="md"

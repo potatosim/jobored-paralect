@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Paper, Text } from '@mantine/core';
 import { ResetButton } from 'static';
 import TextButton from 'components/TextButton';
 import CustomButton from 'components/CustomButton';
 import IndustrySelect from 'components/IndustrySelect';
 import SalaryInput from 'components/SalaryInput';
+import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
+import {
+  decrementFromValue,
+  decrementToValue,
+  incrementFromValue,
+  incrementToValue,
+  setFromValue,
+  setToValue,
+} from 'handlers/filterSlice';
+import { getFiltersAppSelector } from 'selectors/getFiltersAppSelector';
 
 const JobsFilter = () => {
-  const [fromValue, setFromValue] = useState<number | ''>('');
-  const [toValue, setToValue] = useState<number | ''>('');
+  const { salaryFromInput, salaryToInput } = useAppSelector(getFiltersAppSelector);
+  const dispatch = useAppDispatch();
+
   return (
     <Paper
       sx={{
@@ -46,17 +57,29 @@ const JobsFilter = () => {
             Оклад
           </Text>
           <SalaryInput
-            incrementValue={() => {}}
-            decrementValue={() => {}}
-            inputValue={fromValue}
-            setInputValue={setFromValue}
+            incrementValue={() => {
+              dispatch(incrementFromValue());
+            }}
+            decrementValue={() => {
+              dispatch(decrementFromValue());
+            }}
+            inputValue={salaryFromInput}
+            setInputValue={(value) => {
+              dispatch(setFromValue(value));
+            }}
             placeholder="От"
           />
           <SalaryInput
-            incrementValue={() => {}}
-            decrementValue={() => {}}
-            inputValue={toValue}
-            setInputValue={setToValue}
+            incrementValue={() => {
+              dispatch(incrementToValue());
+            }}
+            decrementValue={() => {
+              dispatch(decrementToValue());
+            }}
+            inputValue={salaryToInput}
+            setInputValue={(tovalue) => {
+              dispatch(setToValue(tovalue));
+            }}
             placeholder="До"
           />
         </Box>

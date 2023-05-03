@@ -1,10 +1,15 @@
 import { ActionIcon, Select } from '@mantine/core';
 import { BlueColors } from 'enum/Colors';
+import { getFiltersAppSelector } from 'selectors/getFiltersAppSelector';
+import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import React, { useState } from 'react';
 import { DownArrow, UpArrowSelect } from 'static';
 
 const IndustrySelect = () => {
   const [isSelectFocused, setIsSelectFocus] = useState<boolean>(false);
+
+  const { industries } = useAppSelector(getFiltersAppSelector);
+  const dispatch = useAppDispatch();
 
   return (
     <Select
@@ -13,7 +18,8 @@ const IndustrySelect = () => {
       onDropdownClose={() => setIsSelectFocus(false)}
       rightSection={<ActionIcon>{isSelectFocused ? <UpArrowSelect /> : <DownArrow />}</ActionIcon>}
       rightSectionWidth={50}
-      data={['ed', 'grh', 'zerh', 'ed', 'reh', 'zery', 'ed', 'Ggg', 'erj', 'ed', 'iu;.', 'r5ij']}
+      data={industries}
+      nothingFound="No options"
       styles={(theme) => ({
         item: {
           backgroundColor: theme.white,
