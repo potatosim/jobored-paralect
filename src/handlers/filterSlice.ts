@@ -1,16 +1,20 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Industries } from 'types/Industries';
+import { getIndustries } from 'thunks';
 
 interface SearchInitial {
-  selectedOption: number | null;
+  selectedOption: { value: string; label: string; key: number };
   salaryFromInput: number | '';
   salaryToInput: number | '';
   searchValue: string;
-  industries: Industries[];
+  industries: Array<{ value: string; label: string; key: number }>;
 }
 
 const initialState: SearchInitial = {
-  selectedOption: null,
+  selectedOption: {
+    key: 0,
+    label: '',
+    value: '',
+  },
   salaryFromInput: '',
   salaryToInput: '',
   searchValue: '',
@@ -30,10 +34,8 @@ const filterSlice = createSlice({
     setToValue: (state, { payload }: PayloadAction<number | ''>) => {
       state.salaryToInput = payload;
     },
-    setIndustry: (state, { payload }: PayloadAction<number>) => {
-      if (state.industries.length) {
-        state.industries.find((industry) => industry.key === payload);
-      }
+    setIndustry: (state, { payload }: PayloadAction<string | null>) => {
+      state.selectedOption = state.industries.filter((item) => item.value === payload)[0];
     },
     incrementFromValue: (state) => {
       state.salaryFromInput = +state.salaryFromInput + 1;
@@ -47,9 +49,16 @@ const filterSlice = createSlice({
     decrementToValue: (state) => {
       state.salaryToInput = +state.salaryToInput - 1;
     },
-    resetAllFilters: () => {
-      return initialState;
+    resetAllFilters: (state) => {
+      return { ...initialState, industries: state.industries };
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getIndustries.fulfilled, (state, { payload }) => {
+      if (payload?.length) {
+        state.industries = payload;
+      }
+    });
   },
 });
 

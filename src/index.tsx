@@ -9,13 +9,13 @@ import { store } from 'store/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ThemeProvider>
-        <BrowserRouter>
-          <AppRouter />
-        </BrowserRouter>
-      </ThemeProvider>
-    </Provider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <Provider store={store}>
+    <ThemeProvider>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </ThemeProvider>
+  </Provider>,
+  // </React.StrictMode>,
 );
