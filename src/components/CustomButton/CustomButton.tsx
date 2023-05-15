@@ -4,11 +4,13 @@ import React, { FC } from 'react';
 
 interface CustomButtonProps extends ButtonProps {
   size: 'small' | 'regular';
+  onClick: () => void;
 }
 
-const CustomButton: FC<CustomButtonProps> = ({ size = 'regular', ...props }) => {
+const CustomButton: FC<CustomButtonProps> = ({ size = 'regular', onClick, ...props }) => {
   return (
     <Button
+      onClick={onClick}
       size={size}
       radius="md"
       styles={(theme) => ({

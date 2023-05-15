@@ -14,10 +14,12 @@ import {
   setFromValue,
   setToValue,
 } from 'handlers/filterSlice';
-import { getFiltersAppSelector } from 'selectors/getFiltersAppSelector';
+import { getFiltersAppSelector } from 'selectors/selectors';
+import { getVacancies } from 'thunks';
 
 const JobsFilter = () => {
-  const { salaryFromInput, salaryToInput } = useAppSelector(getFiltersAppSelector);
+  const { salaryFromInput, salaryToInput, searchValue, selectedOption } =
+    useAppSelector(getFiltersAppSelector);
   const dispatch = useAppDispatch();
 
   return (
@@ -83,7 +85,21 @@ const JobsFilter = () => {
             placeholder="До"
           />
         </Box>
-        <CustomButton size="regular">Применить</CustomButton>
+        <CustomButton
+          onClick={() => {
+            dispatch(
+              getVacancies({
+                keyword: searchValue,
+                payment_from: salaryFromInput,
+                payment_to: salaryToInput,
+                catalogues: selectedOption.key,
+              }),
+            );
+          }}
+          size="regular"
+        >
+          Применить
+        </CustomButton>
       </Box>
     </Paper>
   );

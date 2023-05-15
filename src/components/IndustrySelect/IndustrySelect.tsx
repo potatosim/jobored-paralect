@@ -1,6 +1,6 @@
 import { ActionIcon, Select } from '@mantine/core';
 import { BlueColors } from 'enum/Colors';
-import { getFiltersAppSelector } from 'selectors/getFiltersAppSelector';
+import { getFiltersAppSelector } from 'selectors/selectors';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import React, { useEffect, useState } from 'react';
 import { DownArrow, UpArrowSelect } from 'static';
