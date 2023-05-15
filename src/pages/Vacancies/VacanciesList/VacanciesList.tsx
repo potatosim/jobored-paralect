@@ -1,8 +1,13 @@
 import { Box, createStyles } from '@mantine/core';
 import VacancyItem from 'components/VacancyItem/VacancyItem';
+import { isVacancyFavorite } from 'helpers/vacanciesHelpers';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import React, { useEffect } from 'react';
-import { getFiltersAppSelector, getVacanciesAppSelector } from 'selectors/selectors';
+import {
+  getFavoritesSliceSelector,
+  getFiltersSliceSelector,
+  getVacanciesSliceSelector,
+} from 'selectors/selectors';
 import { getVacancies } from 'thunks';
 
 const useStyles = createStyles({
@@ -17,20 +22,23 @@ const useStyles = createStyles({
 const VacanciesList = () => {
   const { classes } = useStyles();
 
-  const { vacanciesToShow } = useAppSelector(getVacanciesAppSelector);
+  const { vacanciesToShow, vacanciesList } = useAppSelector(getVacanciesSliceSelector);
   const { salaryFromInput, salaryToInput, searchValue, selectedOption } =
-    useAppSelector(getFiltersAppSelector);
+    useAppSelector(getFiltersSliceSelector);
+  const { favoritesList } = useAppSelector(getFavoritesSliceSelector);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(
-      getVacancies({
-        keyword: searchValue,
-        payment_from: salaryFromInput,
-        payment_to: salaryToInput,
-        catalogues: selectedOption.key,
-      }),
-    );
+    if (!vacanciesList.length) {
+      dispatch(
+        getVacancies({
+          keyword: searchValue,
+          payment_from: salaryFromInput,
+          payment_to: salaryToInput,
+          catalogues: selectedOption.key,
+        }),
+      );
+    }
   }, []);
 
   if (!vacanciesToShow.length) {
@@ -39,20 +47,13 @@ const VacanciesList = () => {
 
   return (
     <Box className={classes.vacanciesWrapper}>
-      {vacanciesToShow.map(
-        ({ currency, profession, town, paymentFrom, paymentTo, workSchedule, id }) => (
-          <VacancyItem
-            paymentTo={paymentTo}
-            profession={profession}
-            town={town}
-            workSchedule={workSchedule}
-            currency={currency}
-            paymentFrom={paymentFrom}
-            id={id}
-            key={id}
-          />
-        ),
-      )}
+      {vacanciesToShow.map((item) => (
+        <VacancyItem
+          vacancyItem={item}
+          key={item.id}
+          isVacancyFavorite={isVacancyFavorite(item.id, favoritesList)}
+        />
+      ))}
     </Box>
   );
 };

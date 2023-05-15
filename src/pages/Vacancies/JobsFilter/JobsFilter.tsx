@@ -11,16 +11,22 @@ import {
   decrementToValue,
   incrementFromValue,
   incrementToValue,
+  resetAllFilters,
   setFromValue,
   setToValue,
 } from 'handlers/filterSlice';
-import { getFiltersAppSelector } from 'selectors/selectors';
 import { getVacancies } from 'thunks';
+import { getFiltersSliceSelector } from 'selectors/selectors';
 
 const JobsFilter = () => {
   const { salaryFromInput, salaryToInput, searchValue, selectedOption } =
-    useAppSelector(getFiltersAppSelector);
+    useAppSelector(getFiltersSliceSelector);
   const dispatch = useAppDispatch();
+
+  const handleResetFilters = () => {
+    dispatch(resetAllFilters());
+    dispatch(getVacancies({}));
+  };
 
   return (
     <Paper
@@ -45,7 +51,9 @@ const JobsFilter = () => {
         <Text fz="20px" fw={700}>
           Фильтры
         </Text>
-        <TextButton rightIcon={<ResetButton />}>Сбросить все</TextButton>
+        <TextButton onClick={handleResetFilters} rightIcon={<ResetButton />}>
+          Сбросить все
+        </TextButton>
       </Box>
       <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '8px' }}>

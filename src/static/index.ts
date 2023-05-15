@@ -6,6 +6,7 @@ import { ReactComponent as InputArrowUp } from './InputArrowUp.svg';
 import { ReactComponent as UpArrowSelect } from './UpArrow.svg';
 import { ReactComponent as StarIcon } from './Star.svg';
 import { ReactComponent as SearchIcon } from './SearchIcon.svg';
+import { ReactComponent as LocationIcon } from './LocationIcon.svg';
 
 export {
   LogoIcon,
@@ -16,4 +17,5 @@ export {
   UpArrowSelect,
   StarIcon,
   SearchIcon,
+  LocationIcon,
 };

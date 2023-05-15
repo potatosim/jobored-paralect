@@ -1,15 +1,20 @@
+import React from 'react';
 import { ActionIcon, ActionIconProps } from '@mantine/core';
 import { BlueColors, GrayColors } from 'enum/Colors';
-import React from 'react';
 import { StarIcon } from 'static';
 
 interface SaveButtonProps extends ActionIconProps {
   isChecked: boolean;
+  onClick: () => void;
 }
 
-const SaveButton = ({ isChecked, ...props }: SaveButtonProps) => {
+const SaveButton = ({ isChecked, onClick, ...props }: SaveButtonProps) => {
   return (
     <ActionIcon
+      onClick={(event) => {
+        event.stopPropagation();
+        onClick();
+      }}
       variant="transparent"
       sx={(theme) => ({
         svg: {

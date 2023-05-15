@@ -1,7 +1,7 @@
 import { TextInput } from '@mantine/core';
 import CustomButton from 'components/CustomButton/CustomButton';
 import { setSearchValue } from 'handlers/filterSlice';
-import { getFiltersAppSelector } from 'selectors/selectors';
+import { getFiltersSliceSelector } from 'selectors/selectors';
 import { useAppSelector, useAppDispatch } from 'hooks/reduxHooks';
 import React, { ChangeEvent } from 'react';
 import { SearchIcon } from 'static';
@@ -9,7 +9,7 @@ import { getVacancies } from 'thunks';
 
 const SearchInput = () => {
   const { searchValue, salaryFromInput, salaryToInput, selectedOption } =
-    useAppSelector(getFiltersAppSelector);
+    useAppSelector(getFiltersSliceSelector);
   const dispatch = useAppDispatch();
 
   return (

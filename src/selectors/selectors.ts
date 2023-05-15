@@ -1,9 +1,7 @@
 import { RootState } from 'store/store';
 
-export function getFiltersAppSelector(state: RootState) {
-  return state.filter;
-}
+export const getFiltersSliceSelector = (state: RootState) => state.filter;
 
-export function getVacanciesAppSelector(state: RootState) {
-  return state.vacancies;
-}
+export const getVacanciesSliceSelector = (state: RootState) => state.vacancies;
+
+export const getFavoritesSliceSelector = (state: RootState) => state.favorites;

@@ -1,6 +1,6 @@
 import { ActionIcon, Select } from '@mantine/core';
 import { BlueColors } from 'enum/Colors';
-import { getFiltersAppSelector } from 'selectors/selectors';
+import { getFiltersSliceSelector } from 'selectors/selectors';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import React, { useEffect, useState } from 'react';
 import { DownArrow, UpArrowSelect } from 'static';
@@ -10,11 +10,13 @@ import { setIndustry } from 'handlers/filterSlice';
 const IndustrySelect = () => {
   const [isSelectFocused, setIsSelectFocus] = useState<boolean>(false);
 
-  const { industries, selectedOption } = useAppSelector(getFiltersAppSelector);
+  const { industries, selectedOption } = useAppSelector(getFiltersSliceSelector);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getIndustries());
+    if (!industries.length) {
+      dispatch(getIndustries());
+    }
   }, []);
 
   return (

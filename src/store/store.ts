@@ -1,10 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import filterSlice from 'handlers/filterSlice';
-import vacanciesSlice from 'handlers/vacanciesSlice';
+import filterReducer from 'handlers/filterSlice';
+import vacanciesReducer from 'handlers/vacanciesSlice';
+import favoritesReducer from 'handlers/favoritesSlice';
 
 const rootReducer = combineReducers({
-  filter: filterSlice,
-  vacancies: vacanciesSlice,
+  filter: filterReducer,
+  vacancies: vacanciesReducer,
+  favorites: favoritesReducer,
 });
 
 export const store = configureStore({

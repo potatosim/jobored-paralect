@@ -10,13 +10,16 @@ interface CustomButtonProps extends ButtonProps {
 const CustomButton: FC<CustomButtonProps> = ({ size = 'regular', onClick, ...props }) => {
   return (
     <Button
-      onClick={onClick}
       size={size}
       radius="md"
+      onClick={onClick}
       styles={(theme) => ({
         root: {
           padding: size === 'regular' ? '9.5px 20px' : '5.5px 20px',
-          backgroundColor: theme.colors.blue[BlueColors.Blue500],
+          backgroundColor:
+            props.variant === 'light'
+              ? theme.colors.blue[BlueColors.Blue100]
+              : theme.colors.blue[BlueColors.Blue500],
           transition: theme.transitionTimingFunction,
           fontFamily: theme.fontFamily,
           fontWeight: 500,

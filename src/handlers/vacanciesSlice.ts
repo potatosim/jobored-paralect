@@ -1,16 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { INITIAL_PAGE, IVacancyItem, getIndexesForShow } from 'helpers/vacanciesHelpers';
 import { getVacancies, getVacancy } from 'thunks';
-
-export interface IVacancyItem {
-  profession: string;
-  town: string;
-  workSchedule: string;
-  paymentFrom: number | '';
-  paymentTo: number | '';
-  currency: string;
-  id: number;
-  description?: string;
-}
 
 interface VacanciesInitial {
   vacanciesList: IVacancyItem[];
@@ -22,7 +12,7 @@ interface VacanciesInitial {
 const initialState: VacanciesInitial = {
   vacanciesList: [],
   pickedVacancy: null,
-  activePage: 1,
+  activePage: INITIAL_PAGE,
   vacanciesToShow: [],
 };
 
@@ -32,10 +22,7 @@ const vacanciesSlice = createSlice({
   reducers: {
     setActivePage: (state, { payload }: PayloadAction<number>) => {
       state.activePage = payload;
-      state.vacanciesToShow = state.vacanciesList.slice(
-        (state.activePage - 1) * 4,
-        state.activePage * 4,
-      );
+      state.vacanciesToShow = state.vacanciesList.slice(...getIndexesForShow(payload));
     },
     resetVacancy: (state) => {
       state.pickedVacancy = null;
@@ -44,7 +31,7 @@ const vacanciesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getVacancies.fulfilled, (state, { payload }) => {
-        state.vacanciesList = payload;
+        state.vacanciesList = payload.slice(0, 17);
         state.vacanciesToShow = payload.slice(0, 4);
       })
       .addCase(getVacancy.fulfilled, (state, { payload }) => {

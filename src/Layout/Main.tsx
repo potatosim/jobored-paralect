@@ -6,8 +6,8 @@ const useStyles = createStyles({
     width: '100%',
     flex: '1 1 auto',
     display: 'flex',
-    justifyContent: 'space-between',
     padding: '40px 0 44px',
+
     backgroundColor: '#F5F5F5',
   },
 });
