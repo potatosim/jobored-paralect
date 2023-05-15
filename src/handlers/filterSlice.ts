@@ -55,9 +55,7 @@ const filterSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getIndustries.fulfilled, (state, { payload }) => {
-      if (payload?.length) {
-        state.industries = payload;
-      }
+      state.industries = payload;
     });
   },
 });

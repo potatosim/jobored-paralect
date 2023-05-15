@@ -9,7 +9,6 @@ import { store } from 'store/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  // <React.StrictMode>
   <Provider store={store}>
     <ThemeProvider>
       <BrowserRouter>
@@ -17,5 +16,4 @@ root.render(
       </BrowserRouter>
     </ThemeProvider>
   </Provider>,
-  // </React.StrictMode>,
 );

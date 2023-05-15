@@ -1,7 +1,7 @@
 import { Tabs, TabsProps, createStyles } from '@mantine/core';
 import Logo from 'components/Logo';
 import { BlueColors } from 'enum/Colors';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RouteNames } from 'routes/RouteNames';
 
@@ -58,15 +58,16 @@ const Header = () => {
   const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState<RouteNames>(RouteNames.Vacancies);
 
-  useEffect(() => {
-    navigate(currentTab);
-  }, [currentTab]);
+  const handleChangeTab = (value: RouteNames) => {
+    setCurrentTab(value);
+    navigate(value);
+  };
 
   return (
     <header className={classes.header}>
       <div>
         <Logo />
-        <StyledTabs value={currentTab} onTabChange={(value) => setCurrentTab(value as RouteNames)}>
+        <StyledTabs value={currentTab} onTabChange={handleChangeTab}>
           <Tabs.List>
             <Tabs.Tab value={RouteNames.Vacancies}>Поиск Вакансий</Tabs.Tab>
             <Tabs.Tab value={RouteNames.Favorites}>Избранное</Tabs.Tab>
