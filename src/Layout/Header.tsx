@@ -1,24 +1,35 @@
 import { Tabs, TabsProps, createStyles } from '@mantine/core';
+import CenteredContainer from 'components/CenteredContainer';
 import Logo from 'components/Logo';
 import { BlueColors } from 'enum/Colors';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RouteNames } from 'routes/RouteNames';
 
-const useStyles = createStyles({
-  header: {
-    display: 'flex',
-    justifyContent: 'center',
-    padding: '24px 0',
-
-    '& > div': {
-      position: 'relative',
+const useStyles = createStyles((theme) => {
+  console.log(theme);
+  return {
+    header: {
       display: 'flex',
       justifyContent: 'center',
-      maxWidth: '1440px',
-      width: '100%',
+      padding: '31px 0',
+
+      '& > div': {
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+
+      [`@media (max-width: ${theme.breakpoints.md})`]: {
+        padding: '16px 0',
+
+        '& > div': {
+          justifyContent: 'space-between',
+        },
+      },
     },
-  },
+  };
 });
 
 const StyledTabs = ({ styles, ...props }: TabsProps) => {
@@ -27,7 +38,7 @@ const StyledTabs = ({ styles, ...props }: TabsProps) => {
       unstyled
       styles={(theme) => ({
         tab: {
-          fontSize: '16px',
+          fontSize: theme.fontSizes.small,
           lineHeight: '20px',
           fontFamily: 'Inter, sans-serif',
           display: 'flex',
@@ -38,14 +49,23 @@ const StyledTabs = ({ styles, ...props }: TabsProps) => {
           outline: 'none',
           cursor: theme.cursorType,
           color: '#232134',
+          padding: 0,
 
           '&[data-active]': {
             color: theme.colors.blue[BlueColors.Blue500],
+          },
+
+          [`@media (max-width: ${theme.breakpoints.md})`]: {
+            fontSize: theme.fontSizes.xsmall,
           },
         },
         tabsList: {
           display: 'flex',
           columnGap: '60px',
+
+          [`@media (max-width: ${theme.breakpoints.md})`]: {
+            columnGap: '16px',
+          },
         },
       })}
       {...props}
@@ -69,7 +89,7 @@ const Header = () => {
 
   return (
     <header className={classes.header}>
-      <div>
+      <CenteredContainer>
         <Logo />
         <StyledTabs value={currentTab} onTabChange={handleChangeTab}>
           <Tabs.List>
@@ -77,7 +97,7 @@ const Header = () => {
             <Tabs.Tab value={RouteNames.Favorites}>Избранное</Tabs.Tab>
           </Tabs.List>
         </StyledTabs>
-      </div>
+      </CenteredContainer>
     </header>
   );
 };
