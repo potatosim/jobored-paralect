@@ -9,7 +9,11 @@ const useStyles = createStyles({
     justifyContent: 'center',
     alignItems: 'center',
     rowGap: 2,
-    marginRight: 12,
+    marginRight: 5,
+  },
+
+  iconWrapper: {
+    padding: 0,
   },
 });
 
@@ -24,10 +28,20 @@ const InputControls = ({
 
   return (
     <Box className={classes.controlsWrapper}>
-      <ActionIcon onClick={onUpClick} size={12} variant="transparent" sx={{ padding: 0 }}>
+      <ActionIcon
+        onClick={onUpClick}
+        size={12}
+        variant="transparent"
+        className={classes.iconWrapper}
+      >
         <InputArrowUp />
       </ActionIcon>
-      <ActionIcon onClick={onDownClick} size={12} variant="transparent" sx={{ padding: 0 }}>
+      <ActionIcon
+        onClick={onDownClick}
+        size={12}
+        variant="transparent"
+        className={classes.iconWrapper}
+      >
         <InputDownArrow />
       </ActionIcon>
     </Box>
@@ -51,6 +65,8 @@ const SalaryInput: FC<SalaryInputProps> = ({
 }) => {
   return (
     <NumberInput
+      radius="md"
+      size="md"
       min={0}
       value={inputValue}
       placeholder={placeholder}
@@ -68,6 +84,15 @@ const SalaryInput: FC<SalaryInputProps> = ({
       onChange={(value) => {
         setInputValue(value);
       }}
+      styles={(theme) => ({
+        input: {
+          padding: '10px',
+          '&::placeholder': {
+            fontSize: theme.fontSizes.xsmall,
+            fontFamily: theme.fontFamily,
+          },
+        },
+      })}
     />
   );
 };

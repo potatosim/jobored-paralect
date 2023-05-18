@@ -7,6 +7,16 @@ const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
       withGlobalStyles
       withNormalizeCSS
       theme={{
+        globalStyles: () => ({
+          '*, *::before, *::after': {
+            boxSizing: 'border-box',
+          },
+        }),
+        breakpoints: {
+          md: '768px',
+          sm: '425px',
+        },
+        lineHeight: '20px',
         white: '#ffffff',
         black: '#232134',
         colors: {
@@ -41,6 +51,7 @@ const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
         other: {
           fontWeights: {
             normal: 400,
+            medium: 500,
             bold: 600,
             bolder: 700,
           },

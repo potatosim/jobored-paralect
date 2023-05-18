@@ -1,4 +1,4 @@
-import { Pagination, createStyles } from '@mantine/core';
+import { Pagination, PaginationProps, createStyles } from '@mantine/core';
 import React, { FC } from 'react';
 
 const useStyles = createStyles({
@@ -8,33 +8,18 @@ const useStyles = createStyles({
   },
 });
 
-interface CustomPaginationProps {
-  totalPages: number;
+interface CustomPaginationProps extends PaginationProps {
   isShown: boolean;
-  currentPage: number;
-  onPageChange: (value: number) => void;
 }
 
-const CustomPagination: FC<CustomPaginationProps> = ({
-  currentPage,
-  isShown,
-  onPageChange,
-  totalPages,
-}) => {
+const CustomPagination: FC<CustomPaginationProps> = ({ isShown, ...props }) => {
   const { classes } = useStyles();
 
   if (!isShown) {
     return null;
   }
 
-  return (
-    <Pagination
-      className={classes.pagination}
-      total={totalPages}
-      value={currentPage}
-      onChange={onPageChange}
-    />
-  );
+  return <Pagination className={classes.pagination} {...props} />;
 };
 
 export default CustomPagination;

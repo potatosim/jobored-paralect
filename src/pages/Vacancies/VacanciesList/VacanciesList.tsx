@@ -1,4 +1,4 @@
-import { Box, createStyles } from '@mantine/core';
+import { Box, Loader, createStyles } from '@mantine/core';
 import VacancyItem from 'components/VacancyItem/VacancyItem';
 import { isVacancyFavorite } from 'helpers/vacanciesHelpers';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
@@ -22,7 +22,7 @@ const useStyles = createStyles({
 const VacanciesList = () => {
   const { classes } = useStyles();
 
-  const { vacanciesToShow, vacanciesList } = useAppSelector(getVacanciesSliceSelector);
+  const { vacanciesToShow, vacanciesList, isLoading } = useAppSelector(getVacanciesSliceSelector);
   const { salaryFromInput, salaryToInput, searchValue, selectedOption } =
     useAppSelector(getFiltersSliceSelector);
   const { favoritesList } = useAppSelector(getFavoritesSliceSelector);
@@ -41,8 +41,12 @@ const VacanciesList = () => {
     }
   }, []);
 
-  if (!vacanciesToShow.length) {
-    return null;
+  if (!vacanciesList.length || isLoading) {
+    return (
+      <Box className={classes.vacanciesWrapper}>
+        <Loader size="xl" />
+      </Box>
+    );
   }
 
   return (

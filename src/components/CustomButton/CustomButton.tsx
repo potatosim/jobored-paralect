@@ -22,7 +22,7 @@ const CustomButton: FC<CustomButtonProps> = ({ size = 'regular', onClick, ...pro
               : theme.colors.blue[BlueColors.Blue500],
           transition: theme.transitionTimingFunction,
           fontFamily: theme.fontFamily,
-          fontWeight: 500,
+          fontWeight: theme.other.fontWeights.medium,
           fontSize: theme.fontSizes.xsmall,
           lineHeight: '21px',
 

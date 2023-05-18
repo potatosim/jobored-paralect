@@ -1,5 +1,7 @@
 import { Text, createStyles } from '@mantine/core';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { RouteNames } from 'routes/RouteNames';
 import { LogoIcon } from 'static';
 
 const useStyles = createStyles((theme) => {
@@ -12,6 +14,7 @@ const useStyles = createStyles((theme) => {
       left: 0,
       top: '50%',
       transform: 'translateY(-50%)',
+      cursor: 'pointer',
 
       [`@media (max-width: ${theme.breakpoints.md})`]: {
         position: 'unset',
@@ -24,19 +27,25 @@ const useStyles = createStyles((theme) => {
 
 const Logo = () => {
   const { classes } = useStyles();
+  const navigate = useNavigate();
 
   return (
-    <div className={classes.logoWrapper}>
+    <div
+      onClick={() => {
+        navigate(RouteNames.Vacancies);
+      }}
+      className={classes.logoWrapper}
+    >
       <LogoIcon />
       <Text
         sx={(theme) => ({
           fontFamily: 'Poppins, sans-serif',
           fontSize: theme.fontSizes.large,
+          fontWeight: theme.other.fontWeights.bold,
           [`@media (max-width: ${theme.breakpoints.md})`]: {
             fontSize: theme.fontSizes.medium,
           },
         })}
-        fw={600}
       >
         Jobored
       </Text>

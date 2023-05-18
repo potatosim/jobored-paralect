@@ -9,19 +9,19 @@ import NoFavorites from './NoFavorites';
 
 const useStyles = createStyles({
   favoritesWrapper: {
+    height: '100%',
     flex: '1 1 auto',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    rowGap: '16px',
   },
 
   vacanciesWrapper: {
     display: 'flex',
     flexDirection: 'column',
     rowGap: '16px',
-    maxWidth: '713px',
+    maxWidth: '773px',
     width: '100%',
   },
 });
@@ -51,10 +51,11 @@ const Favorites = () => {
         ))}
       </Box>
       <CustomPagination
-        currentPage={activePage}
+        value={activePage}
         isShown={isPaginationShown(favoritesList.length)}
-        onPageChange={handlePageChange}
-        totalPages={getTotalPages(favoritesList.length)}
+        onChange={handlePageChange}
+        total={getTotalPages(favoritesList.length)}
+        sx={{ marginTop: '105px' }}
       />
     </Box>
   );

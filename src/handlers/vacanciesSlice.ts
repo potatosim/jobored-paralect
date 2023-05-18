@@ -7,6 +7,7 @@ interface VacanciesInitial {
   pickedVacancy: IVacancyItem | null;
   activePage: number;
   vacanciesToShow: IVacancyItem[];
+  isLoading: boolean;
 }
 
 const initialState: VacanciesInitial = {
@@ -14,6 +15,7 @@ const initialState: VacanciesInitial = {
   pickedVacancy: null,
   activePage: INITIAL_PAGE,
   vacanciesToShow: [],
+  isLoading: false,
 };
 
 const vacanciesSlice = createSlice({
@@ -33,9 +35,16 @@ const vacanciesSlice = createSlice({
       .addCase(getVacancies.fulfilled, (state, { payload }) => {
         state.vacanciesList = payload.slice(0, 17);
         state.vacanciesToShow = payload.slice(0, 4);
+        state.isLoading = false;
+      })
+      .addCase(getVacancies.rejected, (state) => {
+        state.isLoading = false;
       })
       .addCase(getVacancy.fulfilled, (state, { payload }) => {
         state.pickedVacancy = payload;
+      })
+      .addCase(getVacancies.pending, (state) => {
+        state.isLoading = true;
       });
   },
 });

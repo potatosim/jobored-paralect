@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Paper, Text } from '@mantine/core';
+import { Box, Paper, Text, createStyles } from '@mantine/core';
 import { ResetButton } from 'static';
 import TextButton from 'components/TextButton';
 import CustomButton from 'components/CustomButton';
@@ -18,10 +18,49 @@ import {
 import { getVacancies } from 'thunks';
 import { getFiltersSliceSelector } from 'selectors/selectors';
 
+const useStyles = createStyles((theme) => {
+  return {
+    filtersWrapper: {
+      height: '360px',
+      padding: '20px',
+      display: 'flex',
+      flexDirection: 'column',
+      rowGap: '32px',
+    },
+    filtersHeaderWrapper: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      width: '100%',
+      alignItems: 'center',
+    },
+    filtersBodyWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+      rowGap: '20px',
+    },
+    inputWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+      rowGap: '10px',
+    },
+    labels: {
+      fontSize: theme.fontSizes.small,
+      fontWeight: theme.other.fontWeights.bolder,
+      lineHeight: '16px',
+    },
+    filtersHeader: {
+      fontSize: theme.fontSizes.medium,
+      fontWeight: theme.other.fontWeights.bolder,
+      lineHeight: theme.lineHeight,
+    },
+  };
+});
+
 const JobsFilter = () => {
   const { salaryFromInput, salaryToInput, searchValue, selectedOption } =
     useAppSelector(getFiltersSliceSelector);
   const dispatch = useAppDispatch();
+  const { classes } = useStyles();
 
   const handleResetFilters = () => {
     dispatch(resetAllFilters());
@@ -29,43 +68,20 @@ const JobsFilter = () => {
   };
 
   return (
-    <Paper
-      sx={{
-        width: '315px',
-        height: '360px',
-        padding: '20px',
-        display: 'flex',
-        flexDirection: 'column',
-        rowGap: '2rem',
-      }}
-      radius="lg"
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '100%',
-          alignItems: 'center',
-        }}
-      >
-        <Text fz="20px" fw={700}>
-          Фильтры
-        </Text>
+    <Paper className={classes.filtersWrapper} radius="lg">
+      <Box className={classes.filtersHeaderWrapper}>
+        <Text className={classes.filtersHeader}>Фильтры</Text>
         <TextButton onClick={handleResetFilters} rightIcon={<ResetButton />}>
           Сбросить все
         </TextButton>
       </Box>
-      <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '8px' }}>
-          <Text fw={700} fz="1rem">
-            Отрасль
-          </Text>
+      <Box className={classes.filtersBodyWrapper}>
+        <Box className={classes.inputWrapper}>
+          <Text className={classes.labels}>Отрасль</Text>
           <IndustrySelect />
         </Box>
-        <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '8px' }}>
-          <Text fw={700} fz="1rem">
-            Оклад
-          </Text>
+        <Box className={classes.inputWrapper}>
+          <Text className={classes.labels}>Оклад</Text>
           <SalaryInput
             incrementValue={() => {
               dispatch(incrementFromValue());
@@ -87,8 +103,8 @@ const JobsFilter = () => {
               dispatch(decrementToValue());
             }}
             inputValue={salaryToInput}
-            setInputValue={(tovalue) => {
-              dispatch(setToValue(tovalue));
+            setInputValue={(toValue) => {
+              dispatch(setToValue(toValue));
             }}
             placeholder="До"
           />

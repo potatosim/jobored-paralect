@@ -5,17 +5,28 @@ import { useNavigate } from 'react-router-dom';
 import { RouteNames } from 'routes/RouteNames';
 import nothingToFind from 'static/images/nothingToFind.png';
 
-const useStyles = createStyles({
-  notFoundWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    rowGap: '2rem',
-    padding: '10px',
-    textAlign: 'center',
-    alignSelf: 'center',
-    margin: '0 auto',
-  },
+const useStyles = createStyles((theme) => {
+  return {
+    notFoundWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      rowGap: '38px',
+      padding: '80px',
+      textAlign: 'center',
+      justifyContent: 'center',
+      alignSelf: 'center',
+    },
+    button: {
+      padding: '10px 24px',
+      color: theme.colors.blue[BlueColors.Blue600],
+      fontWeight: theme.other.fontWeights.bold,
+    },
+    text: {
+      fontSize: theme.fontSizes.large,
+      fontWeight: theme.other.fontWeights.bolder,
+    },
+  };
 });
 
 const NoFavorites = () => {
@@ -24,18 +35,12 @@ const NoFavorites = () => {
   return (
     <Box className={classes.notFoundWrapper}>
       <Image alt="nothing to find" src={nothingToFind} maw={240} mah={230} />
-      <Text fw={700} fz="24px">
-        Упс, здесь еще ничего нет!
-      </Text>
+      <Text className={classes.text}>Упс, здесь еще ничего нет!</Text>
       <CustomButton
         size="regular"
         variant="light"
         onClick={() => navigate(RouteNames.Vacancies)}
-        sx={(theme) => ({
-          padding: '10px 24px',
-          color: theme.colors.blue[BlueColors.Blue600],
-          fontWeight: 600,
-        })}
+        className={classes.button}
       >
         Поиск Вакансий
       </CustomButton>

@@ -7,12 +7,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { RouteNames } from 'routes/RouteNames';
 
 const useStyles = createStyles((theme) => {
-  console.log(theme);
   return {
     header: {
       display: 'flex',
       justifyContent: 'center',
-      padding: '31px 0',
+      padding: '32px 0',
 
       '& > div': {
         position: 'relative',

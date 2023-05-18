@@ -1,25 +1,25 @@
 import { Text } from '@mantine/core';
 import React, { FC } from 'react';
 
-const getPaymentField = (from: number | '', to: number | '', currency: string) => {
-  if (from && to) {
+const getPaymentField = (paymentFrom: number | '', paymentTo: number | '', currency: string) => {
+  if (paymentFrom && paymentTo) {
     return (
       <>
-        {from} - {to} {currency}
+        {paymentFrom} - {paymentTo} {currency}
       </>
     );
   }
-  if (from && !to) {
+  if (paymentFrom && !paymentTo) {
     return (
       <>
-        от {from} {currency}
+        от {paymentFrom} {currency}
       </>
     );
   }
-  if (!from && to) {
+  if (!paymentFrom && paymentTo) {
     return (
       <>
-        {to} {currency}
+        {paymentTo} {currency}
       </>
     );
   }
@@ -30,10 +30,31 @@ interface PaymentFieldProps {
   paymentFrom: number | '';
   paymentTo: number | '';
   currency: string;
+  fontSize: string;
+  mediaFS: string;
 }
 
-const PaymentField: FC<PaymentFieldProps> = ({ currency, paymentFrom, paymentTo }) => {
-  return <Text fw={600}>з/п {getPaymentField(paymentFrom, paymentTo, currency)}</Text>;
+const PaymentField: FC<PaymentFieldProps> = ({
+  currency,
+  paymentFrom,
+  paymentTo,
+  fontSize,
+  mediaFS,
+}) => {
+  return (
+    <Text
+      sx={(theme) => ({
+        fontSize: fontSize,
+        fontWeight: theme.other.fontWeights.bold,
+        lineHeight: theme.lineHeight,
+        [`@media (max-width: ${theme.breakpoints.md})`]: {
+          fontSize: mediaFS,
+        },
+      })}
+    >
+      з/п {getPaymentField(paymentFrom, paymentTo, currency)}
+    </Text>
+  );
 };
 
 export default PaymentField;

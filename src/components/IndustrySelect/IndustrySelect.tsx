@@ -29,14 +29,29 @@ const IndustrySelect = () => {
       value={selectedOption.value}
       data={industries}
       nothingFound="No options"
+      size="md"
+      radius="md"
       styles={(theme) => ({
         item: {
           backgroundColor: theme.white,
+          fontSize: theme.fontSizes.xsmall,
           ':hover': { backgroundColor: theme.colors.blue[BlueColors.Blue100] },
           ':active': { backgroundColor: theme.colors.blue[BlueColors.Blue500] },
         },
         rightSection: {
           pointerEvents: 'none',
+        },
+        input: {
+          padding: '10px',
+          fontSize: theme.fontSizes.xsmall,
+          textOverflow: 'ellipsis',
+          '&::placeholder': {
+            fontSize: theme.fontSizes.xsmall,
+            fontFamily: theme.fontFamily,
+          },
+        },
+        dropdown: {
+          borderRadius: '8px',
         },
       })}
       onChange={(value) => dispatch(setIndustry(value))}

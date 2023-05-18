@@ -3,7 +3,7 @@ import BaseApi from './BaseApi';
 import { ApiEndpoints } from 'enum/ApiEndpoints';
 
 export interface IndustryItem {
-  title_trimmed: string;
+  title: string;
   key: number;
 }
 
@@ -23,9 +23,6 @@ export interface VacanciesResponse {
   payment_to: number;
   payment_from: number;
   currency: string;
-  // work?: string;
-  // compensation?: string;
-  // candidat?: string;
   vacancyRichText: string;
   id: number;
 }
@@ -33,9 +30,9 @@ export interface VacanciesResponse {
 export default class JobsApi extends BaseApi {
   async getIndustries() {
     const { data } = await this.instance.get<IndustryItem[]>(ApiEndpoints.Catalogues);
-    return data.map(({ key, title_trimmed }) => ({
-      value: title_trimmed,
-      label: title_trimmed,
+    return data.map(({ key, title }) => ({
+      value: title,
+      label: title,
       key,
     }));
   }

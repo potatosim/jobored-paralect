@@ -12,6 +12,11 @@ const TextButton: FC<TextButtonProps> = ({ onClick, ...props }) => {
       onClick={onClick}
       styles={(theme) => ({
         root: {
+          padding: 0,
+          border: 'none',
+          outline: 'none',
+          height: '20px',
+
           backgroundColor: 'transparent',
           color: theme.colors.gray[GrayColors.Gray500],
 
@@ -46,7 +51,8 @@ const TextButton: FC<TextButtonProps> = ({ onClick, ...props }) => {
           alignItems: 'center',
           columnGap: '4px',
           fontSize: '14px',
-          lineHeight: '21px',
+          lineHeight: '20px',
+          maxHeight: 'max-content',
         },
         rightIcon: {
           margin: 0,
