@@ -37,7 +37,7 @@ const Favorites = () => {
   };
 
   if (!favoritesList.length) {
-    return <NoFavorites />;
+    return <NoFavorites description="Упс, здесь еще ничего нет!" isButton={true} />;
   }
   return (
     <Box className={classes.favoritesWrapper}>

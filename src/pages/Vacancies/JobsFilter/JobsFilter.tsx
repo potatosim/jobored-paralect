@@ -89,11 +89,12 @@ const JobsFilter = () => {
             decrementValue={() => {
               dispatch(decrementFromValue());
             }}
-            inputValue={salaryFromInput}
-            setInputValue={(value) => {
+            value={salaryFromInput}
+            onChange={(value) => {
               dispatch(setFromValue(value));
             }}
             placeholder="От"
+            data-elem="salary-from-input"
           />
           <SalaryInput
             incrementValue={() => {
@@ -102,11 +103,12 @@ const JobsFilter = () => {
             decrementValue={() => {
               dispatch(decrementToValue());
             }}
-            inputValue={salaryToInput}
-            setInputValue={(toValue) => {
+            value={salaryToInput}
+            onChange={(toValue) => {
               dispatch(setToValue(toValue));
             }}
             placeholder="До"
+            data-elem="salary-to-input"
           />
         </Box>
         <CustomButton
@@ -121,6 +123,7 @@ const JobsFilter = () => {
             );
           }}
           size="regular"
+          data-elem="search-button"
         >
           Применить
         </CustomButton>

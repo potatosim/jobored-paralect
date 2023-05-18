@@ -21,6 +21,7 @@ const IndustrySelect = () => {
 
   return (
     <Select
+      data-elem="industry-select"
       placeholder="Выберите отрасль"
       onDropdownOpen={() => setIsSelectFocus(true)}
       onDropdownClose={() => setIsSelectFocus(false)}
@@ -35,8 +36,13 @@ const IndustrySelect = () => {
         item: {
           backgroundColor: theme.white,
           fontSize: theme.fontSizes.xsmall,
-          ':hover': { backgroundColor: theme.colors.blue[BlueColors.Blue100] },
-          ':active': { backgroundColor: theme.colors.blue[BlueColors.Blue500] },
+          borderRadius: '8px',
+          ':hover': {
+            backgroundColor: theme.colors.blue[BlueColors.Blue100],
+          },
+          ':active': {
+            backgroundColor: theme.colors.blue[BlueColors.Blue500],
+          },
         },
         rightSection: {
           pointerEvents: 'none',
@@ -44,14 +50,10 @@ const IndustrySelect = () => {
         input: {
           padding: '10px',
           fontSize: theme.fontSizes.xsmall,
-          textOverflow: 'ellipsis',
           '&::placeholder': {
             fontSize: theme.fontSizes.xsmall,
             fontFamily: theme.fontFamily,
           },
-        },
-        dropdown: {
-          borderRadius: '8px',
         },
       })}
       onChange={(value) => dispatch(setIndustry(value))}

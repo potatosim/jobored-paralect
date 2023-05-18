@@ -16,6 +16,7 @@ const SearchInput = () => {
 
   return (
     <TextInput
+      data-elem="search-input"
       value={searchValue}
       placeholder={matches ? 'Поиск вакансии' : 'Введите название вакансии'}
       onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(setSearchValue(e.target.value))}
@@ -35,6 +36,7 @@ const SearchInput = () => {
             );
           }}
           size="small"
+          data-elem="search-button"
         >
           Поиск
         </CustomButton>

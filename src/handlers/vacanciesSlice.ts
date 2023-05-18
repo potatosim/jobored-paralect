@@ -8,6 +8,7 @@ interface VacanciesInitial {
   activePage: number;
   vacanciesToShow: IVacancyItem[];
   isLoading: boolean;
+  isError: boolean;
 }
 
 const initialState: VacanciesInitial = {
@@ -16,6 +17,7 @@ const initialState: VacanciesInitial = {
   activePage: INITIAL_PAGE,
   vacanciesToShow: [],
   isLoading: false,
+  isError: false,
 };
 
 const vacanciesSlice = createSlice({
@@ -28,10 +30,15 @@ const vacanciesSlice = createSlice({
     },
     resetVacancy: (state) => {
       state.pickedVacancy = null;
+      state.isError = false;
     },
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getVacancies.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
       .addCase(getVacancies.fulfilled, (state, { payload }) => {
         state.vacanciesList = payload.slice(0, 17);
         state.vacanciesToShow = payload.slice(0, 4);
@@ -40,11 +47,17 @@ const vacanciesSlice = createSlice({
       .addCase(getVacancies.rejected, (state) => {
         state.isLoading = false;
       })
+      .addCase(getVacancy.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
       .addCase(getVacancy.fulfilled, (state, { payload }) => {
         state.pickedVacancy = payload;
+        state.isLoading = false;
       })
-      .addCase(getVacancies.pending, (state) => {
-        state.isLoading = true;
+      .addCase(getVacancy.rejected, (state) => {
+        state.isError = true;
+        state.isLoading = false;
       });
   },
 });

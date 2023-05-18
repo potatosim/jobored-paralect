@@ -74,6 +74,7 @@ const VacancyItem: FC<VacancyItemProps> = ({ isVacancyFavorite, vacancyItem }) =
       }}
       radius="lg"
       className={classes.vacancyWrapper}
+      data-elem={`vacancy-${id}`}
     >
       <Box className={classes.descriptionWrapper}>
         <Text className={classes.profession}>{profession}</Text>
@@ -102,6 +103,7 @@ const VacancyItem: FC<VacancyItemProps> = ({ isVacancyFavorite, vacancyItem }) =
       <SaveButton
         onClick={() => dispatch(changeFavorites({ targetVacancy: vacancyItem }))}
         isChecked={isVacancyFavorite}
+        data-elem={`vacancy-${id}-shortlist-button`}
       />
     </Paper>
   );

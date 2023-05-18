@@ -18,6 +18,9 @@ const useStyles = createStyles((theme) => {
       alignItems: 'flex-start',
       justifyContent: 'space-between',
       rowGap: '16px',
+      [`@media (max-width: ${theme.breakpoints.md})`]: {
+        rowGap: 8,
+      },
     },
     titleWrapper: {
       width: '100%',
@@ -39,7 +42,8 @@ const useStyles = createStyles((theme) => {
       fontWeight: theme.other.fontWeights.bolder,
       lineHeight: '35px',
       [`@media (max-width: ${theme.breakpoints.md})`]: {
-        fontSize: theme.fontSizes.medium,
+        fontSize: theme.fontSizes.small,
+        lineHeight: theme.lineHeight,
       },
     },
     paymentScheduleWrapper: {
@@ -49,7 +53,7 @@ const useStyles = createStyles((theme) => {
       alignItems: 'center',
       flexWrap: 'wrap',
       [`@media (max-width: ${theme.breakpoints.md})`]: {
-        rowGap: '16px',
+        rowGap: '0',
       },
     },
     scheduleText: {
@@ -62,7 +66,7 @@ const useStyles = createStyles((theme) => {
 });
 
 const VacancyTopItem: FC<VacancyItemProps> = ({ isVacancyFavorite, vacancyItem }) => {
-  const { paymentFrom, paymentTo, workSchedule, currency, profession, town } = vacancyItem;
+  const { paymentFrom, paymentTo, workSchedule, currency, profession, town, id } = vacancyItem;
   const dispatch = useAppDispatch();
   const { classes } = useStyles();
   return (
@@ -72,6 +76,7 @@ const VacancyTopItem: FC<VacancyItemProps> = ({ isVacancyFavorite, vacancyItem }
         <SaveButton
           onClick={() => dispatch(changeFavorites({ targetVacancy: vacancyItem }))}
           isChecked={isVacancyFavorite}
+          data-elem={`vacancy-${id}-shortlist-button`}
         />
       </Box>
       <Box className={classes.paymentScheduleWrapper}>

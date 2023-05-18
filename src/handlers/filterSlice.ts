@@ -41,13 +41,13 @@ const filterSlice = createSlice({
       state.salaryFromInput = +state.salaryFromInput + 1;
     },
     decrementFromValue: (state) => {
-      state.salaryFromInput = +state.salaryFromInput - 1;
+      state.salaryFromInput = +state.salaryFromInput - 1 < 0 ? 0 : +state.salaryFromInput - 1;
     },
     incrementToValue: (state) => {
       state.salaryToInput = +state.salaryToInput + 1;
     },
     decrementToValue: (state) => {
-      state.salaryToInput = +state.salaryToInput - 1;
+      state.salaryToInput = +state.salaryToInput - 1 < 0 ? 0 : +state.salaryToInput - 1;
     },
     resetAllFilters: (state) => {
       return { ...initialState, industries: state.industries };

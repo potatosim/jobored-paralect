@@ -1,7 +1,8 @@
 import { Box, Loader, createStyles } from '@mantine/core';
-import VacancyItem from 'components/VacancyItem/VacancyItem';
+import VacancyItem from 'components/VacancyItem';
 import { isVacancyFavorite } from 'helpers/vacanciesHelpers';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
+import NoFavorites from 'pages/Favorites/NoFavorites';
 import React, { useEffect } from 'react';
 import {
   getFavoritesSliceSelector,
@@ -41,12 +42,16 @@ const VacanciesList = () => {
     }
   }, []);
 
-  if (!vacanciesList.length || isLoading) {
+  if (isLoading) {
     return (
       <Box className={classes.vacanciesWrapper}>
         <Loader size="xl" />
       </Box>
     );
+  }
+
+  if (!vacanciesList.length) {
+    return <NoFavorites description="Вакансии не найдены!" isButton={false} />;
   }
 
   return (

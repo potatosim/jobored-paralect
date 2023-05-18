@@ -1,4 +1,4 @@
-import { ActionIcon, Box, NumberInput, createStyles } from '@mantine/core';
+import { ActionIcon, Box, NumberInput, NumberInputProps, createStyles } from '@mantine/core';
 import React, { FC } from 'react';
 import { InputArrowUp, InputDownArrow } from 'static';
 
@@ -48,28 +48,17 @@ const InputControls = ({
   );
 };
 
-interface SalaryInputProps {
-  placeholder: string;
-  inputValue: number | '';
-  setInputValue: (inputValue: number | '') => void;
+interface SalaryInputProps extends NumberInputProps {
   incrementValue: () => void;
   decrementValue: () => void;
 }
 
-const SalaryInput: FC<SalaryInputProps> = ({
-  placeholder,
-  inputValue,
-  setInputValue,
-  decrementValue,
-  incrementValue,
-}) => {
+const SalaryInput: FC<SalaryInputProps> = ({ decrementValue, incrementValue, ...props }) => {
   return (
     <NumberInput
       radius="md"
       size="md"
       min={0}
-      value={inputValue}
-      placeholder={placeholder}
       hideControls
       rightSection={
         <InputControls
@@ -81,9 +70,6 @@ const SalaryInput: FC<SalaryInputProps> = ({
           }}
         />
       }
-      onChange={(value) => {
-        setInputValue(value);
-      }}
       styles={(theme) => ({
         input: {
           padding: '10px',
@@ -93,6 +79,7 @@ const SalaryInput: FC<SalaryInputProps> = ({
           },
         },
       })}
+      {...props}
     />
   );
 };

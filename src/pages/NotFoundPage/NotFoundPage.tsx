@@ -1,7 +1,7 @@
-import React from 'react';
+import NoFavorites from 'pages/Favorites/NoFavorites';
 
 const NotFoundPage = () => {
-  return <div>NotFoundPage</div>;
+  return <NoFavorites description="Страница не найдена! Ошибка 404." isButton={true} />;
 };
 
 export default NotFoundPage;

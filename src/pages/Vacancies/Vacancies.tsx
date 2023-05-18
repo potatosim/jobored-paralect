@@ -1,5 +1,5 @@
 import JobsFilter from './JobsFilter';
-import { ActionIcon, Box, Collapse, MediaQuery, Tooltip, createStyles } from '@mantine/core';
+import { ActionIcon, Box, Collapse, Tooltip, createStyles } from '@mantine/core';
 import SearchInput from 'components/SearchInput';
 import VacanciesList from './VacanciesList';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
@@ -54,7 +54,6 @@ const useStyles = createStyles((theme) => {
     collapse: {
       width: 'min(315px, 30%)',
       minWidth: '270px',
-
       [`@media (max-width: ${theme.breakpoints.md})`]: {
         width: '100%',
       },
@@ -82,13 +81,13 @@ const Vacancies = () => {
         <Box className={classes.vacanciesWrapper}>
           <Box className={classes.filtersWrapper}>
             <SearchInput />
-            <MediaQuery largerThan="md" styles={{ display: 'none' }}>
+            {matches && (
               <Tooltip label="Фильтры">
                 <ActionIcon onClick={() => setIsOpen(!isOpen)}>
-                  <Filter size={46} strokeWidth={2} color={'#000000'} />
+                  <Filter size={46} strokeWidth={2} color={theme.black} />
                 </ActionIcon>
               </Tooltip>
-            </MediaQuery>
+            )}
           </Box>
           <VacanciesList />
         </Box>
