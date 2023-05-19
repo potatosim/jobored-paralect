@@ -35,6 +35,7 @@ interface SaveButtonProps extends ActionIconProps {
 
 const SaveButton = ({ isChecked, onClick, ...props }: SaveButtonProps) => {
   const { classes } = useStyles({ isChecked });
+
   return (
     <ActionIcon
       className={classes.button}

@@ -1,12 +1,12 @@
+import React, { FC } from 'react';
 import { Box, Paper, Text, createStyles } from '@mantine/core';
 import LocationField from 'components/LocationField';
-import PaymentField from 'components/PaymentField';
 import SaveButton from 'components/SaveButton';
 import { VacancyItemProps } from 'components/VacancyItem';
 import { GrayColors } from 'enum/Colors';
 import { changeFavorites } from 'handlers/favoritesSlice';
+import { getPaymentField } from 'helpers/getPaymentField';
 import { useAppDispatch } from 'hooks/reduxHooks';
-import React, { FC } from 'react';
 
 const useStyles = createStyles((theme) => {
   return {
@@ -62,6 +62,14 @@ const useStyles = createStyles((theme) => {
         fontSize: theme.fontSizes.small,
       },
     },
+    paymentField: {
+      fontSize: theme.fontSizes.medium,
+      fontWeight: theme.other.fontWeights.bold,
+      lineHeight: theme.lineHeight,
+      [`@media (max-width: ${theme.breakpoints.md})`]: {
+        fontSize: theme.fontSizes.small,
+      },
+    },
   };
 });
 
@@ -80,13 +88,9 @@ const VacancyTopItem: FC<VacancyItemProps> = ({ isVacancyFavorite, vacancyItem }
         />
       </Box>
       <Box className={classes.paymentScheduleWrapper}>
-        <PaymentField
-          fontSize="20px"
-          mediaFS="16px"
-          currency={currency}
-          paymentFrom={paymentFrom}
-          paymentTo={paymentTo}
-        />
+        <Text className={classes.paymentField}>
+          з/п {getPaymentField(paymentFrom, paymentTo, currency)}
+        </Text>
         <Box className={classes.circle}></Box>
         <Text className={classes.scheduleText}>{workSchedule}</Text>
       </Box>

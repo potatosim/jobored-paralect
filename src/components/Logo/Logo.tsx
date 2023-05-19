@@ -1,5 +1,5 @@
-import { Text, createStyles } from '@mantine/core';
 import React from 'react';
+import { Text, createStyles } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { RouteNames } from 'routes/RouteNames';
 import { LogoIcon } from 'static';
@@ -22,6 +22,14 @@ const useStyles = createStyles((theme) => {
         top: 'unset',
       },
     },
+    logoText: {
+      fontFamily: 'Poppins, sans-serif',
+      fontSize: theme.fontSizes.large,
+      fontWeight: theme.other.fontWeights.bold,
+      [`@media (max-width: ${theme.breakpoints.md})`]: {
+        fontSize: theme.fontSizes.medium,
+      },
+    },
   };
 });
 
@@ -37,18 +45,7 @@ const Logo = () => {
       className={classes.logoWrapper}
     >
       <LogoIcon />
-      <Text
-        sx={(theme) => ({
-          fontFamily: 'Poppins, sans-serif',
-          fontSize: theme.fontSizes.large,
-          fontWeight: theme.other.fontWeights.bold,
-          [`@media (max-width: ${theme.breakpoints.md})`]: {
-            fontSize: theme.fontSizes.medium,
-          },
-        })}
-      >
-        Jobored
-      </Text>
+      <Text className={classes.logoText}>Jobored</Text>
     </div>
   );
 };

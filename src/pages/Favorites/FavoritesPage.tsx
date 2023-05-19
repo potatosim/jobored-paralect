@@ -1,11 +1,11 @@
 import { Box, createStyles } from '@mantine/core';
-import CustomPagination from 'components/CustomPagination/CustomPagination';
-import VacancyItem from 'components/VacancyItem/VacancyItem';
+import CustomPagination from 'components/CustomPagination';
+import VacancyItem from 'components/VacancyItem';
 import { setActiveFavoritesPage } from 'handlers/favoritesSlice';
 import { getTotalPages, isPaginationShown, isVacancyFavorite } from 'helpers/vacanciesHelpers';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
-import { getFavoritesSliceSelector } from 'selectors/selectors';
-import NoFavorites from './NoFavorites';
+import { getFavoritesSliceSelector } from 'handlers/selectors';
+import NotFound from 'components/NotFound';
 
 const useStyles = createStyles({
   favoritesWrapper: {
@@ -37,8 +37,9 @@ const Favorites = () => {
   };
 
   if (!favoritesList.length) {
-    return <NoFavorites description="Упс, здесь еще ничего нет!" isButton={true} />;
+    return <NotFound description="Упс, здесь еще ничего нет!" isButton />;
   }
+
   return (
     <Box className={classes.favoritesWrapper}>
       <Box className={classes.vacanciesWrapper}>
@@ -55,7 +56,7 @@ const Favorites = () => {
         isShown={isPaginationShown(favoritesList.length)}
         onChange={handlePageChange}
         total={getTotalPages(favoritesList.length)}
-        sx={{ marginTop: '105px' }}
+        mt={105}
       />
     </Box>
   );

@@ -1,15 +1,17 @@
+import { ChangeEvent, useState } from 'react';
 import JobsFilter from './JobsFilter';
 import { ActionIcon, Box, Collapse, Tooltip, createStyles } from '@mantine/core';
 import SearchInput from 'components/SearchInput';
 import VacanciesList from './VacanciesList';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
-import { getVacanciesSliceSelector } from 'selectors/selectors';
+import { getFiltersSliceSelector, getVacanciesSliceSelector } from 'handlers/selectors';
 import { setActivePage } from 'handlers/vacanciesSlice';
 import CustomPagination from 'components/CustomPagination/CustomPagination';
 import { getTotalPages, isPaginationShown } from 'helpers/vacanciesHelpers';
-import { Filter } from 'tabler-icons-react';
 import { useMediaQuery } from '@mantine/hooks';
-import { useState } from 'react';
+import { getVacancies } from 'thunks';
+import { setSearchValue } from 'handlers/filterSlice';
+import { FilterIcon } from 'static';
 
 const useStyles = createStyles((theme) => {
   return {
@@ -64,12 +66,26 @@ const useStyles = createStyles((theme) => {
 const Vacancies = () => {
   const { classes, theme } = useStyles();
   const { vacanciesList, activePage } = useAppSelector(getVacanciesSliceSelector);
+  const { searchValue, salaryFromInput, salaryToInput, selectedOption } =
+    useAppSelector(getFiltersSliceSelector);
+  const dispatch = useAppDispatch();
+
   const [isOpen, setIsOpen] = useState(false);
   const matches = useMediaQuery(`(max-width: ${theme.breakpoints.md})`);
-  const dispatch = useAppDispatch();
 
   const handlePageChange = (value: number) => {
     dispatch(setActivePage(value));
+  };
+
+  const handleSubmit = () => {
+    dispatch(
+      getVacancies({
+        keyword: searchValue,
+        payment_from: salaryFromInput,
+        payment_to: salaryToInput,
+        catalogues: selectedOption.key,
+      }),
+    );
   };
 
   return (
@@ -80,11 +96,19 @@ const Vacancies = () => {
       <Box className={classes.wrapper}>
         <Box className={classes.vacanciesWrapper}>
           <Box className={classes.filtersWrapper}>
-            <SearchInput />
+            <SearchInput
+              onSubmit={handleSubmit}
+              value={searchValue}
+              data-elem="search-input"
+              placeholder={matches ? 'Поиск вакансии' : 'Введите название вакансии'}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                dispatch(setSearchValue(e.target.value))
+              }
+            />
             {matches && (
               <Tooltip label="Фильтры">
                 <ActionIcon onClick={() => setIsOpen(!isOpen)}>
-                  <Filter size={46} strokeWidth={2} color={theme.black} />
+                  <FilterIcon />
                 </ActionIcon>
               </Tooltip>
             )}
@@ -96,7 +120,7 @@ const Vacancies = () => {
           isShown={isPaginationShown(vacanciesList.length)}
           onChange={handlePageChange}
           total={getTotalPages(vacanciesList.length)}
-          sx={{ marginTop: 40 }}
+          mt={40}
         />
       </Box>
     </Box>

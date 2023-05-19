@@ -1,52 +1,6 @@
-import { ActionIcon, Box, NumberInput, NumberInputProps, createStyles } from '@mantine/core';
 import React, { FC } from 'react';
-import { InputArrowUp, InputDownArrow } from 'static';
-
-const useStyles = createStyles({
-  controlsWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    rowGap: 2,
-    marginRight: 5,
-  },
-
-  iconWrapper: {
-    padding: 0,
-  },
-});
-
-const InputControls = ({
-  onDownClick,
-  onUpClick,
-}: {
-  onUpClick: () => void;
-  onDownClick: () => void;
-}) => {
-  const { classes } = useStyles();
-
-  return (
-    <Box className={classes.controlsWrapper}>
-      <ActionIcon
-        onClick={onUpClick}
-        size={12}
-        variant="transparent"
-        className={classes.iconWrapper}
-      >
-        <InputArrowUp />
-      </ActionIcon>
-      <ActionIcon
-        onClick={onDownClick}
-        size={12}
-        variant="transparent"
-        className={classes.iconWrapper}
-      >
-        <InputDownArrow />
-      </ActionIcon>
-    </Box>
-  );
-};
+import { NumberInput, NumberInputProps } from '@mantine/core';
+import InputControls from './InputControls';
 
 interface SalaryInputProps extends NumberInputProps {
   incrementValue: () => void;

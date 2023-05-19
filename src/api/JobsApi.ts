@@ -44,6 +44,7 @@ export default class JobsApi extends BaseApi {
     catalogues = 0,
   }: VacanciesSearchRequest) {
     const accessToken = await getAccessToken();
+
     const { data } = await this.instance.get<{ objects: VacanciesResponse[] }>(
       ApiEndpoints.Vacancies,
       {
@@ -56,6 +57,7 @@ export default class JobsApi extends BaseApi {
           payment_to,
           catalogues,
           published: 1,
+          no_agreement: !payment_from && !payment_to ? 0 : 1,
         },
       },
     );
@@ -82,6 +84,7 @@ export default class JobsApi extends BaseApi {
         },
       },
     );
+
     return {
       profession: data.profession,
       town: data.town.title,

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Paper, Text, createStyles } from '@mantine/core';
 import { ResetButton } from 'static';
 import TextButton from 'components/TextButton';
 import CustomButton from 'components/CustomButton';
-import IndustrySelect from 'components/IndustrySelect';
+import CustomSelect from 'components/CustomSelect';
 import SalaryInput from 'components/SalaryInput';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import {
@@ -13,10 +13,11 @@ import {
   incrementToValue,
   resetAllFilters,
   setFromValue,
+  setIndustry,
   setToValue,
 } from 'handlers/filterSlice';
-import { getVacancies } from 'thunks';
-import { getFiltersSliceSelector } from 'selectors/selectors';
+import { getIndustries, getVacancies } from 'thunks';
+import { getFiltersSliceSelector } from 'handlers/selectors';
 
 const useStyles = createStyles((theme) => {
   return {
@@ -57,7 +58,7 @@ const useStyles = createStyles((theme) => {
 });
 
 const JobsFilter = () => {
-  const { salaryFromInput, salaryToInput, searchValue, selectedOption } =
+  const { salaryFromInput, salaryToInput, searchValue, selectedOption, industries } =
     useAppSelector(getFiltersSliceSelector);
   const dispatch = useAppDispatch();
   const { classes } = useStyles();
@@ -66,6 +67,12 @@ const JobsFilter = () => {
     dispatch(resetAllFilters());
     dispatch(getVacancies({}));
   };
+
+  useEffect(() => {
+    if (!industries.length) {
+      dispatch(getIndustries());
+    }
+  }, []);
 
   return (
     <Paper className={classes.filtersWrapper} radius="lg">
@@ -78,7 +85,14 @@ const JobsFilter = () => {
       <Box className={classes.filtersBodyWrapper}>
         <Box className={classes.inputWrapper}>
           <Text className={classes.labels}>Отрасль</Text>
-          <IndustrySelect />
+          <CustomSelect
+            data-elem="industry-select"
+            placeholder="Выберите отрасль"
+            value={selectedOption.value}
+            onChange={(value) => dispatch(setIndustry(value))}
+            data={industries}
+            nothingFound="No options"
+          />
         </Box>
         <Box className={classes.inputWrapper}>
           <Text className={classes.labels}>Оклад</Text>

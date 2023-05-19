@@ -1,13 +1,13 @@
-import { Box, Paper, Text, createStyles } from '@mantine/core';
-import LocationField from 'components/LocationField';
-import PaymentField from 'components/PaymentField';
-import SaveButton from 'components/SaveButton/SaveButton';
-import { BlueColors, GrayColors } from 'enum/Colors';
-import { changeFavorites } from 'handlers/favoritesSlice';
-import { getVacancyPageUrl } from 'helpers/getVacancyPageUrl';
-import { IVacancyItem } from 'helpers/vacanciesHelpers';
-import { useAppDispatch } from 'hooks/reduxHooks';
 import React, { FC } from 'react';
+import { BlueColors, GrayColors } from 'enum/Colors';
+import { Box, Paper, Text, createStyles } from '@mantine/core';
+import { IVacancyItem } from 'helpers/vacanciesHelpers';
+import LocationField from 'components/LocationField';
+import SaveButton from 'components/SaveButton/SaveButton';
+import { changeFavorites } from 'handlers/favoritesSlice';
+import { getPaymentField } from 'helpers/getPaymentField';
+import { getVacancyPageUrl } from 'helpers/getVacancyPageUrl';
+import { useAppDispatch } from 'hooks/reduxHooks';
 import { useNavigate } from 'react-router-dom';
 
 export interface VacancyItemProps {
@@ -48,7 +48,6 @@ const useStyles = createStyles((theme) => {
         fontSize: theme.fontSizes.small,
       },
     },
-
     paymentScheduleWrapper: {
       display: 'flex',
       columnGap: '12px',
@@ -56,6 +55,20 @@ const useStyles = createStyles((theme) => {
       flexWrap: 'wrap',
       [`@media (max-width: ${theme.breakpoints.md})`]: {
         rowGap: '12px',
+      },
+    },
+    paymentField: {
+      fontSize: theme.fontSizes.small,
+      fontWeight: theme.other.fontWeights.bold,
+      lineHeight: theme.lineHeight,
+      [`@media (max-width: ${theme.breakpoints.md})`]: {
+        fontSize: theme.fontSizes.xsmall,
+      },
+    },
+    workSchedule: {
+      fontSize: theme.fontSizes.small,
+      [`@media (max-width: ${theme.breakpoints.md})`]: {
+        fontSize: theme.fontSizes.xsmall,
       },
     },
   };
@@ -79,24 +92,11 @@ const VacancyItem: FC<VacancyItemProps> = ({ isVacancyFavorite, vacancyItem }) =
       <Box className={classes.descriptionWrapper}>
         <Text className={classes.profession}>{profession}</Text>
         <Box className={classes.paymentScheduleWrapper}>
-          <PaymentField
-            fontSize="16px"
-            mediaFS="14px"
-            currency={currency}
-            paymentFrom={paymentFrom}
-            paymentTo={paymentTo}
-          />
-          <Box className={classes.circle}></Box>
-          <Text
-            sx={(theme) => ({
-              fontSize: theme.fontSizes.small,
-              [`@media (max-width: ${theme.breakpoints.md})`]: {
-                fontSize: theme.fontSizes.xsmall,
-              },
-            })}
-          >
-            {workSchedule}
+          <Text className={classes.paymentField}>
+            з/п {getPaymentField(paymentFrom, paymentTo, currency)}
           </Text>
+          <Box className={classes.circle}></Box>
+          <Text className={classes.workSchedule}>{workSchedule}</Text>
         </Box>
         <LocationField town={town} />
       </Box>

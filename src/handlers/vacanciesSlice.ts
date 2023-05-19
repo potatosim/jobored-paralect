@@ -40,8 +40,9 @@ const vacanciesSlice = createSlice({
         state.isError = false;
       })
       .addCase(getVacancies.fulfilled, (state, { payload }) => {
-        state.vacanciesList = payload.slice(0, 17);
-        state.vacanciesToShow = payload.slice(0, 4);
+        state.vacanciesList = payload;
+        state.vacanciesToShow = payload.slice(...getIndexesForShow(INITIAL_PAGE));
+        state.activePage = INITIAL_PAGE;
         state.isLoading = false;
       })
       .addCase(getVacancies.rejected, (state) => {

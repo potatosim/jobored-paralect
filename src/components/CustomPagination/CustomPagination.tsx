@@ -1,5 +1,5 @@
-import { Pagination, PaginationProps, createStyles } from '@mantine/core';
 import React, { FC } from 'react';
+import { Pagination, PaginationProps, createStyles } from '@mantine/core';
 
 const useStyles = createStyles({
   pagination: {

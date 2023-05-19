@@ -1,7 +1,6 @@
+import React, { FC } from 'react';
 import { Box, Text, createStyles } from '@mantine/core';
 import { LocationIcon } from 'static';
-
-import React, { FC } from 'react';
 
 interface LocationFieldProps {
   town: string;

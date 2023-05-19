@@ -1,14 +1,14 @@
+import React, { useEffect } from 'react';
 import { Box, Loader, createStyles } from '@mantine/core';
 import VacancyItem from 'components/VacancyItem';
 import { isVacancyFavorite } from 'helpers/vacanciesHelpers';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
-import NoFavorites from 'pages/Favorites/NoFavorites';
-import React, { useEffect } from 'react';
+import NotFound from 'components/NotFound';
 import {
   getFavoritesSliceSelector,
   getFiltersSliceSelector,
   getVacanciesSliceSelector,
-} from 'selectors/selectors';
+} from 'handlers/selectors';
 import { getVacancies } from 'thunks';
 
 const useStyles = createStyles({
@@ -51,7 +51,7 @@ const VacanciesList = () => {
   }
 
   if (!vacanciesList.length) {
-    return <NoFavorites description="Вакансии не найдены!" isButton={false} />;
+    return <NotFound description="Вакансии не найдены!" />;
   }
 
   return (

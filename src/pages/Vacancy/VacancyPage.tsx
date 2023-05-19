@@ -1,13 +1,13 @@
+import React, { FC, useEffect } from 'react';
 import { Box, Loader, Paper, createStyles } from '@mantine/core';
 import { resetVacancy } from 'handlers/vacanciesSlice';
 import { isVacancyFavorite } from 'helpers/vacanciesHelpers';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
-import React, { FC, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getFavoritesSliceSelector, getVacanciesSliceSelector } from 'selectors/selectors';
+import { getFavoritesSliceSelector, getVacanciesSliceSelector } from 'handlers/selectors';
 import { getVacancy } from 'thunks';
 import VacancyTopItem from './VacancyTopItem';
-import NoFavorites from 'pages/Favorites/NoFavorites';
+import NotFound from 'components/NotFound';
 
 const useStyles = createStyles({
   wrapper: {
@@ -49,7 +49,7 @@ const VacancyPage: FC = () => {
   }
 
   if (isError) {
-    return <NoFavorites description="Такой вакансии не существует :(" isButton={true} />;
+    return <NotFound description="Такой вакансии не существует :(" isButton />;
   }
 
   return (
@@ -60,7 +60,7 @@ const VacancyPage: FC = () => {
             vacancyItem={pickedVacancy}
             isVacancyFavorite={isVacancyFavorite(pickedVacancy.id, favoritesList)}
           />
-          <Paper radius="lg" sx={{ padding: '24px' }} dangerouslySetInnerHTML={createMarkup()} />
+          <Paper radius="lg" p={24} dangerouslySetInnerHTML={createMarkup()} />
         </>
       )}
     </Box>

@@ -1,35 +1,17 @@
-import { ActionIcon, Select } from '@mantine/core';
-import { BlueColors } from 'enum/Colors';
-import { getFiltersSliceSelector } from 'selectors/selectors';
-import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
-import React, { useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
+import { ActionIcon, Select, SelectProps } from '@mantine/core';
 import { DownArrow, UpArrowSelect } from 'static';
-import { getIndustries } from 'thunks';
-import { setIndustry } from 'handlers/filterSlice';
+import { BlueColors } from 'enum/Colors';
 
-const IndustrySelect = () => {
+const CustomSelect: FC<SelectProps> = ({ ...props }) => {
   const [isSelectFocused, setIsSelectFocus] = useState<boolean>(false);
-
-  const { industries, selectedOption } = useAppSelector(getFiltersSliceSelector);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (!industries.length) {
-      dispatch(getIndustries());
-    }
-  }, []);
 
   return (
     <Select
-      data-elem="industry-select"
-      placeholder="Выберите отрасль"
       onDropdownOpen={() => setIsSelectFocus(true)}
       onDropdownClose={() => setIsSelectFocus(false)}
       rightSection={<ActionIcon>{isSelectFocused ? <UpArrowSelect /> : <DownArrow />}</ActionIcon>}
       rightSectionWidth={50}
-      value={selectedOption.value}
-      data={industries}
-      nothingFound="No options"
       size="md"
       radius="md"
       styles={(theme) => ({
@@ -56,9 +38,9 @@ const IndustrySelect = () => {
           },
         },
       })}
-      onChange={(value) => dispatch(setIndustry(value))}
+      {...props}
     />
   );
 };
 
-export default IndustrySelect;
+export default CustomSelect;

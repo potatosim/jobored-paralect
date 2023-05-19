@@ -1,6 +1,6 @@
+import React, { FC, PropsWithChildren } from 'react';
 import { createStyles } from '@mantine/core';
 import CenteredContainer from 'components/CenteredContainer';
-import React, { FC, PropsWithChildren } from 'react';
 
 const useStyles = createStyles((theme) => {
   return {

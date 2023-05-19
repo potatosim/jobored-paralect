@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ApiEndpoints } from 'enum/ApiEndpoints';
-import { SessionStorageKeys } from 'enum/SessionStorageKeys';
+import { LocalStorageKeys } from 'enum/LocalStorageKeys';
 
 interface GetTokenResponse {
   access_token: string;
@@ -11,8 +11,8 @@ interface GetTokenResponse {
 const TOKEN_EXPIRATION_TIME = 7 * 24 * 60 * 60 * 1000;
 
 const checkStoredToken = (): boolean =>
-  !!sessionStorage.getItem(SessionStorageKeys.ACCESS_TOKEN_KEY) &&
-  +sessionStorage.getItem(SessionStorageKeys.TOKEN_EXPIRATION_DATE_KEY)! > new Date().getTime();
+  !!localStorage.getItem(LocalStorageKeys.AccessToken) &&
+  +localStorage.getItem(LocalStorageKeys.TokenExpirationDate)! > new Date().getTime();
 
 export const getAccessToken = async () => {
   if (!checkStoredToken()) {
@@ -33,14 +33,14 @@ export const getAccessToken = async () => {
       },
     );
 
-    sessionStorage.setItem(SessionStorageKeys.ACCESS_TOKEN_KEY, data.access_token);
-    sessionStorage.setItem(
-      SessionStorageKeys.TOKEN_EXPIRATION_DATE_KEY,
+    localStorage.setItem(LocalStorageKeys.AccessToken, data.access_token);
+    localStorage.setItem(
+      LocalStorageKeys.TokenExpirationDate,
       (new Date().getTime() + TOKEN_EXPIRATION_TIME).toString(),
     );
 
     return data.access_token;
   }
 
-  return sessionStorage.getItem(SessionStorageKeys.ACCESS_TOKEN_KEY)!;
+  return localStorage.getItem(LocalStorageKeys.AccessToken)!;
 };

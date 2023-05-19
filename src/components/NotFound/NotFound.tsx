@@ -1,10 +1,10 @@
-import { Box, Image, Text, createStyles } from '@mantine/core';
-import CustomButton from 'components/CustomButton';
-import { BlueColors } from 'enum/Colors';
 import { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Box, Image, Text, createStyles } from '@mantine/core';
+import { BlueColors } from 'enum/Colors';
+import CustomButton from 'components/CustomButton';
 import { RouteNames } from 'routes/RouteNames';
 import nothingToFind from 'static/images/nothingToFind.png';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => {
   return {
@@ -32,10 +32,10 @@ const useStyles = createStyles((theme) => {
 
 interface NoFavoritesProps {
   description: string;
-  isButton: boolean;
+  isButton?: boolean;
 }
 
-const NoFavorites: FC<NoFavoritesProps> = ({ description, isButton }) => {
+const NotFound: FC<NoFavoritesProps> = ({ description, isButton }) => {
   const navigate = useNavigate();
   const { classes } = useStyles();
   return (
@@ -56,4 +56,4 @@ const NoFavorites: FC<NoFavoritesProps> = ({ description, isButton }) => {
   );
 };
 
-export default NoFavorites;
+export default NotFound;
