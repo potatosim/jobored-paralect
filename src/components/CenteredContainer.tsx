@@ -6,6 +6,7 @@ const useStyles = createStyles((theme) => {
     wrapper: {
       maxWidth: '1116px',
       width: '100%',
+      height: '100%',
       margin: '0 20px',
 
       [`@media (max-width: ${theme.breakpoints.md})`]: {
